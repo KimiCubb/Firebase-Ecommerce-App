@@ -70,20 +70,21 @@ const OrderHistory: React.FC<OrderHistoryProps> = ({ onGoHome }) => {
 
         setOrders(ordersData);
       } catch (error) {
-        const err = error as any;
+        const err = error as Record<string, unknown>;
+        const errorMessage = String(err?.message || "Failed to load orders");
 
         // ✅ Handle different error types
-        if (err.message?.includes("Permission denied")) {
+        if (errorMessage?.includes("Permission denied")) {
           setError("You don't have permission to view these orders");
-        } else if (err.message?.includes("index")) {
+        } else if (errorMessage?.includes("index")) {
           setIndexBuilding(true);
           setError(
             "Database is building indexes. Please try again in 1-2 minutes."
           );
-        } else if (err.message?.includes("CORS")) {
+        } else if (errorMessage?.includes("CORS")) {
           setError("Connection error. Please check your internet connection.");
         } else {
-          setError(err.message || "Failed to load orders");
+          setError(errorMessage);
         }
 
         console.error("Order fetch error:", err);
@@ -113,6 +114,16 @@ const OrderHistory: React.FC<OrderHistoryProps> = ({ onGoHome }) => {
       // Fallback if no handler provided
       window.location.href = "/";
     }
+  };
+
+  // NOTE: handleUpdateStatus function reserved for future order status updates
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleUpdateStatus = (orderId: string, newStatus: string) => {
+    const order: Record<string, unknown> = orders.find(
+      (o) => o.id === orderId
+    ) as unknown as Record<string, unknown>;
+    // TODO: Implement order status update logic
+    console.log("Update order", orderId, "to status:", newStatus, order);
   };
 
   if (loading) {

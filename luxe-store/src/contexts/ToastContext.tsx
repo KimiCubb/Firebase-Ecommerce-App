@@ -13,6 +13,7 @@ export interface ToastContextType {
   removeToast: (id: string) => void;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const ToastContext = createContext<ToastContextType | undefined>(
   undefined
 );
@@ -56,6 +57,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useToast = () => {
   const context = useContext(ToastContext);
   if (!context) {

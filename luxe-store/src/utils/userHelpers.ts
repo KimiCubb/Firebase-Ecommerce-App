@@ -11,7 +11,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { deleteUser, type User } from "firebase/auth";
-import { db, auth } from "../firebaseConfig";
+import { db } from "../firebaseConfig";
 import type { User as FirebaseUser } from "firebase/auth";
 
 export interface UserProfile {
@@ -119,9 +119,10 @@ export const deleteUserAccount = async (
       try {
         await deleteUser(firebaseUser);
         console.log("✅ User account deleted from Firebase Auth");
-      } catch (authError: any) {
+      } catch (authError: unknown) {
         // If the user requires re-authentication, throw a specific error
-        if (authError.code === "auth/requires-recent-login") {
+        const error = authError as Record<string, string>;
+        if (error.code === "auth/requires-recent-login") {
           throw new Error(
             "Please log out and log in again before deleting your account for security reasons."
           );

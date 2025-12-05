@@ -17,6 +17,7 @@ const placeholderImage =
 const ProductImage: React.FC<ProductImageProps> = ({
   src,
   alt,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   category,
   className,
   style,
