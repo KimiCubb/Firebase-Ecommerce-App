@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryFilter Component matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-3 mb-4"
+  >
+    <label
+      class="fs-6 fw-medium text-brand-primary text-nowrap"
+      for="category-select"
+    >
+      Filter by Category:
+    </label>
+    <select
+      class="form-select shadow-sm"
+      id="category-select"
+      style="min-width: 200px;"
+    >
+      <option
+        value=""
+      >
+        All
+      </option>
+      <option
+        value="electronics"
+      >
+        Electronics
+      </option>
+      <option
+        value="jewelery"
+      >
+        Jewelery
+      </option>
+      <option
+        value="men's clothing"
+      >
+        Men's clothing
+      </option>
+      <option
+        value="women's clothing"
+      >
+        Women's clothing
+      </option>
+    </select>
+  </div>
+</DocumentFragment>
+`;
