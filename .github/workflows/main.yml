@@ -1,0 +1,55 @@
+name: CI Pipeline
+
+# Run the workflow on pushes and pull requests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18" # Use a Node.js version compatible with your React app
+
+      # Step 3: Cache Node modules for faster builds
+      - name: Cache Node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Step 4: Install dependencies
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./luxe-store
+
+      # Step 5: Run linter (continue even if there are warnings)
+      - name: Run linter
+        run: npm run lint
+        working-directory: ./luxe-store
+        continue-on-error: true
+
+      # Step 6: Build application
+      - name: Build application
+        run: npm run build
+        working-directory: ./luxe-store
+
+      # Step 7: Run tests with coverage
+      - name: Run tests with coverage
+        run: npm test -- --coverage --watchAll=false
+        working-directory: ./luxe-store
