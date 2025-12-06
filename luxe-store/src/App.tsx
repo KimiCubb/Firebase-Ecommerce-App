@@ -19,7 +19,6 @@ import CheckoutPage from "./pages/CheckoutPage";
 import CheckoutSuccessPage from "./pages/CheckoutSuccessPage";
 import ProductsPage from "./pages/ProductsPage";
 import ProfilePage from "./pages/ProfilePage";
-import NotFoundPage from "./pages/NotFound";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -74,7 +73,7 @@ const AppContent: React.FC = () => {
               />
               <Route path="/products" element={<ProductsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="*" element={<NotFoundPage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>
         </ErrorBoundary>
